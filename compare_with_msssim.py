@@ -8,6 +8,7 @@ import sys
 
 
 def compare_images(img_a, img_b):
+    """ Returns a ssim score based on the given images. """
 
     img_a = np.array(img_a)
     img_b = np.array(img_b)
@@ -24,6 +25,7 @@ def compare_images(img_a, img_b):
 
 
 def compare_images_from_path(path_a, path_b):
+    """ Returns a ssim score based on images from the given paths. """
 
     img_a = Image.open(path_a)
     img_b = Image.open(path_b)
@@ -43,7 +45,8 @@ class CouldNotLoadFrameError(Error):
 
 
 def compare_videos_from_path(path_a, path_b, frames=1):
-    
+    """ Returns the average ssim score on the given videos. Add number of frames to read. """
+
     vidcap_a = cv2.VideoCapture(path_a)
     vidcap_b = cv2.VideoCapture(path_b)
 
@@ -76,8 +79,9 @@ def compare_videos_from_path(path_a, path_b, frames=1):
             img_a_pil = Image.fromarray(img_a_converted)
             img_b_pil = Image.fromarray(img_b_converted)
             ssim_score += compare_images(img_a_pil, img_b_pil)
+
     except CouldNotLoadFrameError:
         print("A frame could not be opened, please decrease number of iterations")
         sys.exit(1)
 
-    print("average ssim: ", ssim_score / iterations)
+    return ssim_score/ iterations
