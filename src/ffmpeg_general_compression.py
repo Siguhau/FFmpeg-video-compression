@@ -10,14 +10,15 @@
 # might need to install ffmpeg to your computer
 
 
-#import argparse
+# import argparse
 import os
 import subprocess
 import time
 
+
 def general_compression(input, output, codec, cr):
-    
-     # Argparser
+
+    # Argparser
     # ap = argparse.ArgumentParser(description="Get compression information")
     # ap.add_argument("-i", "--input", required=True, help="input folder path")
     # ap.add_argument(
@@ -28,16 +29,16 @@ def general_compression(input, output, codec, cr):
     #     "-cr", "--compressionRate", required=True, help="Level of compression"
     # )
     # args = vars(ap.parse_args())
-    
+
     # Setting arguments
     # output = args["output"]
     # input_arg = args["input"]
     # codec = args["codec"]
     # compression_rate = args["compressionRate"]
-    #print(output)
+    # print(output)
     general_output_path = os.path.join(output, "compressed")
     try:
-        #print(general_output_path)
+        # print(general_output_path)
         os.mkdir(general_output_path)
     except OSError:
         pass
@@ -57,6 +58,12 @@ def general_compression(input, output, codec, cr):
         print(command)
         subprocess.call(command.split())
         print("time: ", time.time() - start_time)
-        
+
+
 if __name__ == "__main__":
-    general_compression("/Users/ellen/Documents/MTDT/TDT4290/FFmpeg-video-compression/src/", "/Users/ellen/Documents/MTDT/TDT4290/FFmpeg-video-compression/src/", "libx", 3)
+    general_compression(
+        "/Users/ellen/Documents/MTDT/TDT4290/FFmpeg-video-compression/src/",
+        "/Users/ellen/Documents/MTDT/TDT4290/FFmpeg-video-compression/src/",
+        "libx",
+        3,
+    )
