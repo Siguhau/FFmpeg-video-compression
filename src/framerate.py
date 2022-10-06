@@ -10,6 +10,6 @@ def print_framerates(path_a, path_b):
 
 def get_framerate(path):
     """Returns the framerate of the video on given path."""
-    vidcap = cv2.VideoCapture(path).read()
+    vidcap = cv2.VideoCapture(path)
     fps = int(vidcap.get(cv2.CAP_PROP_FPS))
     return fps
