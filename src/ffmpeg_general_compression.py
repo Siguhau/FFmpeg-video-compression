@@ -1,8 +1,3 @@
-"""
-    Usage with 10 times H.265 compression:
-    python c:\path\to\script.py -i c:\path\to\input\ -o c:\path\to\output\ -c libx265 -cr 10
-"""
-
 import os
 import subprocess
 import time
