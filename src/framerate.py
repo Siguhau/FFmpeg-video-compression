@@ -1,21 +1,15 @@
 import cv2
 
-def framerate(original_path, compressed_path):
-    
-    "original path: C:\\Users\\sigur\\Desktop\\highframeratevideos\\hpfs2.avi"
-    "compressed path: C:\\Users\\sigur\\Desktop\\split\\compressed\\0.mp4"
-    
-    vidcap = cv2.VideoCapture(original_path)
-    vidcap2 = cv2.VideoCapture(compressed_path)
 
-    vidcap.read()
-    vidcap2.read()
+def print_framerates(path_a, path_b):
+    """Print framerates of the videos on a given path."""
+    fps_a = get_framerate(path_a)
+    fps_b = get_framerate(path_b)
+    return print(fps_a, fps_b)
 
-    fps = int(
-        vidcap.get(cv2.CAP_PROP_FPS)
-    )  # Might want to go for half of the original fps.
-    fps2 = int(
-        vidcap2.get(cv2.CAP_PROP_FPS)
-    )  # Might want to go for half of the original fps.
 
-    return print(fps, fps2)
+def get_framerate(path):
+    """Returns the framerate of the video on given path."""
+    vidcap = cv2.VideoCapture(path).read()
+    fps = int(vidcap.get(cv2.CAP_PROP_FPS))
+    return fps
