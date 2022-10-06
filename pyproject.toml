@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bulbitech_video_compression"
+version = "0.0.1"
+authors = [
+  { name="Adrian Andersen", email="adrianandersen@protonmail.com" },
+]
+description = "A package for splitting and compressing video using ffmpeg"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Siguhau/FFmpeg-video-compression"
+"Bug Tracker" = "https://github.com/Siguhau/FFmpeg-video-compression/issues"
