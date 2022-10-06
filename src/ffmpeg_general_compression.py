@@ -1,15 +1,3 @@
-"""
-    Short script for running ffmpeg on a folder
-
-    To use, ffmpeg must be installed
-
-    Usage with 10 times H.265 compression:
-    python c:\path\to\script.py -i c:\path\to\input\ -o c:\path\to\output\ -c libx265 -cr 10
-"""
-# pip install ffmpeg-python
-# might need to install ffmpeg to your computer
-
-
 import argparse
 import os
 import subprocess
@@ -39,7 +27,7 @@ if __name__ == "__main__":
     try:
         print(general_output_path)
         os.mkdir(general_output_path)
-    except OSError as e:
+    except OSError:
         pass
 
     # Compression with ffmpeg:
