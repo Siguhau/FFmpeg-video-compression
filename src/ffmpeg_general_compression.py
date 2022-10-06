@@ -10,28 +10,30 @@
 # might need to install ffmpeg to your computer
 
 
-
 import argparse
 import os
 import subprocess
 import time
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # Argparser
-    ap = argparse.ArgumentParser(description='Get compression information')
+    ap = argparse.ArgumentParser(description="Get compression information")
     ap.add_argument("-i", "--input", required=True, help="input folder path")
-    ap.add_argument("-o", "--output", required=False, default=os.getcwd(), help="output file")
+    ap.add_argument(
+        "-o", "--output", required=False, default=os.getcwd(), help="output file"
+    )
     ap.add_argument("-c", "--codec", required=True, help="Codec")
-    ap.add_argument("-cr", "--compressionRate", required=True, help="Level of compression")
+    ap.add_argument(
+        "-cr", "--compressionRate", required=True, help="Level of compression"
+    )
     args = vars(ap.parse_args())
 
     # Setting arguments
-    output = args['output']
-    input_arg = args['input']
-    codec = args['codec']
-    compression_rate = args['compressionRate']
+    output = args["output"]
+    input_arg = args["input"]
+    codec = args["codec"]
+    compression_rate = args["compressionRate"]
     print(output)
     general_output_path = os.path.join(output, "compressed")
     try:
@@ -40,10 +42,12 @@ if __name__ == '__main__':
     except OSError as e:
         pass
 
-    #Compression with ffmpeg:
+    # Compression with ffmpeg:
 
     # Find all files in input folder
-    input_videos = [f for f in os.listdir(input_arg) if os.path.isfile(os.path.join(input_arg, f))]
+    input_videos = [
+        f for f in os.listdir(input_arg) if os.path.isfile(os.path.join(input_arg, f))
+    ]
     for idx, video in enumerate(input_videos):
         start_time = time.time()
         output_path = os.path.join(general_output_path, f"{idx}.mp4")
