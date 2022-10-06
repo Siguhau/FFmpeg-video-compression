@@ -1,5 +1,3 @@
-from importlib.metadata import requires
-
 import cv2
 import numpy as np
 import pytorch_msssim

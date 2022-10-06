@@ -1,0 +1,11 @@
+-r flake8.txt
+-r isort.txt
+-r black.txt
+-r tox.txt
+
+numpy==1.23.3
+opencv-python==4.6.0.66
+Pillow==9.2.0
+pytorch-msssim==0.2.1
+torch==1.12.1
+typing_extensions==4.3.0
