@@ -1,10 +1,11 @@
-import torch
-import cv2
-from pytorch_msssim import ssim
-from PIL import Image
-import numpy as np
-from torch.autograd import Variable
 import sys
+
+import cv2
+import numpy as np
+import torch
+from PIL import Image
+from pytorch_msssim import ssim
+from torch.autograd import Variable
 
 
 def compare_images(img_a, img_b):
