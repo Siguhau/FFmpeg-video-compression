@@ -5,32 +5,6 @@ import numpy as np
 import torch
 from PIL import Image
 from pytorch_msssim import ssim
-from torch.autograd import Variable
-
-
-def compare_images(img_a, img_b):
-    """Returns a ssim score based on the given images."""
-
-    img_a = np.array(img_a)
-    img_b = np.array(img_b)
-
-    np_img_a = np.array(img_a)
-    np_img_b = np.array(img_b)
-
-    img_a = torch.from_numpy(np_img_a).float().unsqueeze(0) / 255.0
-    img_b = torch.from_numpy(np_img_b).float().unsqueeze(0) / 255.0
-
-    img_a = Variable(img_a, requires_grad=False)
-    img_b = Variable(img_b, requires_grad=False)
-    return ssim(img_a, img_b).item()
-
-
-def compare_images_from_path(path_a, path_b):
-    """Returns a ssim score based on images from the given paths."""
-
-    img_a = Image.open(path_a)
-    img_b = Image.open(path_b)
-    return compare_images(img_a, img_b)
 
 
 class Error(Exception):
@@ -45,6 +19,25 @@ class CouldNotLoadFrameError(Error):
     """Could not load the frame."""
 
 
+def compare_images(img_a, img_b):
+    """Returns a ssim score based on the given images."""
+
+    np_img_a = np.array(img_a)
+    np_img_b = np.array(img_b)
+
+    torch_img_a = torch.from_numpy(np_img_a).float().unsqueeze(0) / 255.0
+    torch_img_b = torch.from_numpy(np_img_b).float().unsqueeze(0) / 255.0
+    return ssim(torch_img_a, torch_img_b).item()
+
+
+def compare_images_from_path(path_a, path_b):
+    """Returns a ssim score based on images from the given paths."""
+
+    img_a = Image.open(path_a)
+    img_b = Image.open(path_b)
+    return compare_images(img_a, img_b)
+
+
 def compare_videos_from_path(path_a, path_b, frames=1):
     """Returns the average ssim score on the given videos. Add number of frames to read."""
 
@@ -52,9 +45,7 @@ def compare_videos_from_path(path_a, path_b, frames=1):
     vidcap_b = cv2.VideoCapture(path_b)
 
     try:
-        if not vidcap_a.isOpened():
-            raise (CouldNotOpenVideoError)
-        if not vidcap_b.isOpened():
+        if not (vidcap_a.isOpened() and vidcap_b.isOpened()):
             raise (CouldNotOpenVideoError)
     except CouldNotOpenVideoError:
         print("A video could not be opened.")
@@ -65,12 +56,11 @@ def compare_videos_from_path(path_a, path_b, frames=1):
 
     try:
         for _ in range(frames):
+
             success_a, img_a = vidcap_a.read()
             success_b, img_b = vidcap_b.read()
 
-            if not success_a:
-                raise (CouldNotLoadFrameError)
-            if not success_b:
+            if not (success_a and success_b):
                 raise (CouldNotLoadFrameError)
 
             # Unsure of the potential quality loss here.
@@ -80,9 +70,11 @@ def compare_videos_from_path(path_a, path_b, frames=1):
             img_a_pil = Image.fromarray(img_a_converted)
             img_b_pil = Image.fromarray(img_b_converted)
             ssim_score += compare_images(img_a_pil, img_b_pil)
+            iterations += 1
 
     except CouldNotLoadFrameError:
         print("A frame could not be opened, please decrease number of iterations")
         sys.exit(1)
 
     return ssim_score / iterations
+

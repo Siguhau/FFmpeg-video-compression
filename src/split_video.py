@@ -14,8 +14,8 @@ def split_video(input_path, output_path, output_name):
     except OSError:
         pass
 
-    output1_path = "{}\\{}_1.avi".format(output_path, output_name)
-    output2_path = "{}\\{}_2.avi".format(output_path, output_name)
+    output1_path = os.path.join(output_path, f"{output_name}_1.avi")
+    output2_path = os.path.join(output_path, f"{output_name}_2.avi")
 
     # Read video
     input_video = cv2.VideoCapture(input_path)
