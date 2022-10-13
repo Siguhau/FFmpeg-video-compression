@@ -77,4 +77,3 @@ def compare_videos_from_path(path_a, path_b, frames=1):
         sys.exit(1)
 
     return ssim_score / iterations
-
